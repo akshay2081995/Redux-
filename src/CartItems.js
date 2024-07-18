@@ -26,7 +26,12 @@ export const CartItems = () => {
 
   // console.log(addBasket);
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className={`min-h-screen ${addBasket.length===0?"bg-white":"bg-gray-100"}`}>
+    {addBasket.length===0 ? (
+      <div className="relative top-8 left-4  w-[85%] h-auto p-10 bg-white">
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-2130356-1800917.png" alt="emptycart" />
+      </div>
+    ):(
       <div className="relative top-8 left-4 border border-black w-[85%] h-auto p-10 bg-white">
         <h1 className="text-4xl text-start font-bold">Shopping Cart</h1>
         <h3 className="text-end font-bold">Price</h3>
@@ -101,7 +106,8 @@ export const CartItems = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div>)}
+    
     </div>
   );
 };

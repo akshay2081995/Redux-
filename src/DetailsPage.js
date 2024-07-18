@@ -8,11 +8,10 @@ const MAX_RATING = 5;
 const MIN_RATING = 1;
 
 export const DetailsPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const UserActive = useSelector((state) => state.counter.activeUser);
+  const UserActive = useSelector((state) => state.counter.activeUser);
   const [rating] = useState(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
   );
@@ -57,7 +56,9 @@ export const DetailsPage = () => {
                 <StarIcon key={i} className="h-5 text-yellow-500" />
               ))}
           </div>
-          <h2 className="text-lg text-gray-700 mb-4">{product.description}</h2>
+          <h2 className="text-lg text-gray-700 mb-4 text-start">
+            {product.description}
+          </h2>
           <div className="flex items-center text-2xl font-bold mb-4">
             <CurrencyRupeeIcon className="h-5 mr-1" />
             {product.price}
@@ -74,7 +75,10 @@ export const DetailsPage = () => {
               </p>
             </div>
           )}
-          <button className="bg-yellow-500 border border-yellow-500 rounded-sm w-full py-2 font-bold text-white hover:bg-yellow-400 transition duration-200" onClick={()=>AddinCard(product)}>
+          <button
+            className="bg-yellow-500 border border-yellow-500 rounded-sm w-full py-2 font-bold text-white hover:bg-yellow-400 transition duration-200"
+            onClick={() => AddinCard(product)}
+          >
             Add to cart
           </button>
         </div>

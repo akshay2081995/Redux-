@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userActive } from "../Features/Counter/CounterSlice";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../Firebase";
 
 export const Loginpage = () => {
   const [email, setEmail] = useState("");
@@ -17,15 +19,24 @@ export const Loginpage = () => {
       (dta) => dta.email === email && dta.password === Password
     );
     if (DataLogin.length > 0) {
-      dispatch(
-        userActive(
-          ...DataLogin
-        )
-      );
+      dispatch(userActive(...DataLogin));
       navigate("/");
     } else {
       toast.error("data not match");
     }
+  };
+
+  const logwithgoogle = () => {
+    signInWithPopup(auth, provider).then((result) => {
+      const user = result.user;
+      const userData = {
+        name: user.displayName,
+          email: user.email,
+          password:user.password
+      };
+      dispatch(userActive(userData));
+        navigate("/");
+    });
   };
 
   return (
@@ -80,8 +91,16 @@ export const Loginpage = () => {
             <div className="flex justify-center gap-3">
               <h2>New Customer?</h2>
               <Link to={"/Signin"} className="text-blue-800 hover:underline">
-                    Create New Account
+                Create New Account
               </Link>
+            </div>
+            <div className="bg-gray-100">
+              <img
+                src="https://onymos.com/wp-content/uploads/2020/10/google-signin-button.png"
+                alt="loginwithgoogle"
+                className="h-16 flex justify-center items-center w-96 bg-gray-100 cursor-pointer"
+                onClick={logwithgoogle}
+              />
             </div>
           </div>
         </section>
