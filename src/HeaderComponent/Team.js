@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Team = () => {
   return (
-    <div>
+    <div className=''>
          <div className="bg-white">
 
       <main className="container mx-auto px-4 py-8">

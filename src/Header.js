@@ -4,18 +4,16 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Header = () => {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const UserActive = useSelector((state) => state.counter.activeUser);
   const countingcart = useSelector((state) => state.counter.cartCount);
   console.log(UserActive);
 
-     const cartItems=()=>{
-         navigate("/cartItems")
-     }
+  const cartItems = () => {
+    navigate("/cartItems");
+  };
 
-
-
-
+  
 
   return (
     <div>
@@ -42,10 +40,7 @@ export const Header = () => {
                 </Link>
               )}
               {UserActive && (
-                <div className="text-start">
-                  <h1 className="text-blue-700">{UserActive.name}</h1>
-                  <h4>{UserActive.email}</h4>
-                </div>
+                <Showname UserActive={UserActive}/>
               )}
               {!UserActive && (
                 <Link
@@ -94,15 +89,7 @@ export const Header = () => {
               id="mobile-menu-2"
             >
               <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                <li>
-                  <Link
-                    to="/"
-                    className="block  text-black hover:text-blue-800 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
-                    aria-current="page"
-                  >
-                    Home
-                  </Link>
-                </li>
+                <ListItem to={"/"} name={"Home"}/>
                 <li>
                   <Link
                     to="company"
@@ -143,7 +130,10 @@ export const Header = () => {
                     Shop
                   </Link>
                 </li>
-                <div className="relative flex items-center cursor-pointer" onClick={cartItems}>
+                <div
+                  className="relative flex items-center cursor-pointer"
+                  onClick={cartItems}
+                >
                   <span className="absolute top-0 left-6 md:right-10 h-4 w-4 bg-yellow-400 flex justify-center items-center rounded-full">
                     {countingcart}
                   </span>
@@ -160,3 +150,35 @@ export const Header = () => {
     </div>
   );
 };
+
+
+const Showname=({UserActive})=>{
+
+  const Idname=UserActive?.name?.split(" ")
+  return <div className="text-start flex gap-4 items-center">
+  {UserActive?.image ? (
+    <img
+      src={UserActive.image}
+      alt="idphoto"
+      className="h-9 rounded-full"
+    />
+  ) : (
+    <div className="h-9 w-9 rounded-full bg-black text-white flex items-center justify-center">
+      <p className="font-bold text-lg m-0 p-0">{Idname[0].charAt(0).toUpperCase()+Idname?.[1].charAt(0).toUpperCase()}</p>
+    </div>
+  )}
+  <h1 className="text-blue-700">{UserActive.name}</h1>
+  {/* <h4>{UserActive.email}</h4> */}
+</div>
+}
+
+const ListItem=({to,name})=>{
+  return <li>
+  <Link
+    to={to}
+    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100  lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700 hover:text-blue-800"
+  >
+    {name}
+  </Link>
+</li>
+}

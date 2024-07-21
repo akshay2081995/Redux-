@@ -28,14 +28,17 @@ export const Loginpage = () => {
 
   const logwithgoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
+      console.log(result);
       const user = result.user;
       const userData = {
+        ...result,
         name: user.displayName,
-          email: user.email,
-          password:user.password
+        email: user.email,
+        password: user.password,
+        // image:user.photoURL,
       };
       dispatch(userActive(userData));
-        navigate("/");
+      navigate("/");
     });
   };
 

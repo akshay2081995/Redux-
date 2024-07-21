@@ -19,9 +19,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/Login" element={<Loginpage />} />
+        <NewComponent >
+          <Routes>
+            <Route path="/Login" element={<Loginpage />} />
             <Route path="/" element={<HomeContent />} />
             <Route path="/company" element={<Company />} />
             <Route path="/features" element={<Features />} />
@@ -30,10 +30,11 @@ function App() {
             <Route path="/Signin" element={<SignIn />} />
             <Route path="/cartItems" element={<CartItems />} />
             <Route path="/product/:id" element={<DetailsPage />} />
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/shop" element={<Shop />} />
-          </Route>
-        </Routes>
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/shop" element={<Shop />} />
+            </Route>
+          </Routes>
+        </NewComponent>
       </BrowserRouter>
       <ToastContainer />
     </div>
@@ -41,3 +42,14 @@ function App() {
 }
 
 export default App;
+
+const NewComponent = ({children }) => {
+  
+  return (
+    <>
+      <Header />
+      
+      {children}
+    </>
+  );
+};
